@@ -1,0 +1,125 @@
+[gd_scene load_steps=11 format=3 uid="uid://dnrocora4apr1"]
+
+[ext_resource type="Texture2D" uid="uid://cdip1pxm50cmg" path="res://models/test/Enemy1.png" id="1_3pdnj"]
+[ext_resource type="Script" path="res://models/test/BlueStarEnemey.gd" id="1_p7p7g"]
+[ext_resource type="Texture2D" uid="uid://ct708p0mk2sba" path="res://models/test/Enemy2.png" id="2_1cu26"]
+[ext_resource type="Texture2D" uid="uid://w1l7gu16q8b3" path="res://models/test/Enemy3.png" id="3_4stje"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4h721"]
+radius = 0.413248
+
+[sub_resource type="Animation" id="Animation_suxx4"]
+resource_name = "BlueStar_Die"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_1cu26")]
+}
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0.434533, 0)
+
+[sub_resource type="Animation" id="Animation_eslad"]
+resource_name = "BlueStar_Hurt"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_4stje")]
+}
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0.61187, 0)
+
+[sub_resource type="Animation" id="Animation_ovcxx"]
+resource_name = "BlueStar_Idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_3pdnj")]
+}
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0.61187, 0)
+
+[sub_resource type="Animation" id="Animation_m2jnp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_3pdnj")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lc0i6"]
+_data = {
+"BlueStar_Die": SubResource("Animation_suxx4"),
+"BlueStar_Hurt": SubResource("Animation_eslad"),
+"BlueStar_Idle": SubResource("Animation_ovcxx"),
+"RESET": SubResource("Animation_m2jnp")
+}
+
+[node name="BlueStar" type="CharacterBody3D" groups=["Enemy"]]
+script = ExtResource("1_p7p7g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.623617, 0, 0, 0, 0.791351, 0, 0.624613, 0)
+shape = SubResource("CapsuleShape3D_4h721")
+
+[node name="RayCast" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
+
+[node name="Timer" type="Timer" parent="RayCast"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lc0i6")
+}
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 1, 0, 0.434533, 0)
+billboard = 2
+texture_filter = 0
+texture = ExtResource("1_3pdnj")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
