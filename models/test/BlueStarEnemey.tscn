@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dnrocora4apr1"]
+[gd_scene load_steps=12 format=3 uid="uid://dnrocora4apr1"]
 
 [ext_resource type="Texture2D" uid="uid://cdip1pxm50cmg" path="res://models/test/Enemy1.png" id="1_3pdnj"]
 [ext_resource type="Script" path="res://models/test/BlueStarEnemey.gd" id="1_p7p7g"]
@@ -99,6 +99,14 @@ _data = {
 "RESET": SubResource("Animation_m2jnp")
 }
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wo10j"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/sync = true
+
 [node name="BlueStar" type="CharacterBody3D" groups=["Enemy"]]
 script = ExtResource("1_p7p7g")
 
@@ -123,3 +131,6 @@ texture_filter = 0
 texture = ExtResource("1_3pdnj")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_wo10j")

@@ -12,7 +12,8 @@ func check_hit():
 	for ray in gun_rays	:
 		if ray.is_colliding():
 			if ray.get_collider().is_in_group("Enemy"):
-				ray.get_collider().take_damage(damage)
+				#ray.get_collider().take_damage(damage)
+				ray.get_collider().rpc("take_damage", damage)
 	
 func make_flash():
 	pass

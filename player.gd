@@ -89,7 +89,7 @@ func play_shoot_effects():
 	pass
 
 @rpc("any_peer")
-func receive_damage(dmg_amount):
+func take_damage(dmg_amount):
 	health -= dmg_amount
 	if health <= 0:
 		health = 100
